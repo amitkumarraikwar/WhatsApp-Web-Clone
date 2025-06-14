@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { User, AuthResponse } from '../types';
 
-const API_URL = 'http://localhost:5000/api';
+const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://whatsapp-web-clone-vjqw.onrender.com/api";
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -31,7 +31,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem('refreshToken');
         if (refreshToken) {
-          const response = await axios.post(`${API_URL}/auth/refresh`, {
+          const response = await axios.post(`${VITE_API_BASE_URL}/auth/refresh`, {
             refreshToken,
           });
 
